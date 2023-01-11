@@ -9,3 +9,6 @@ all:
 clean:
 	rm -f ./sph.out
 	rm -f ./*.o
+
+run: #: Run one rank on each cpu
+	mpirun -n `sysctl -n hw.ncpu` bin/sph.out
