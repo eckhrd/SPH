@@ -1,5 +1,5 @@
 # TinySPH
-TinySPH is a parallel 2D Smoothed Particle Hydrodynamics(SPH) code, designed to run in real time on the Oak Ridge Leadership Computing Facility's "Tiny Titan" Raspberry Pi cluster. This application was designed to demonstrate distributed computing concepts and while it works best in a distributed environment it is possible to run on a shared memory system such as a single multicore processor. Although the code is designed for Tiny Titan it should, perhaps with some small build tweaks, compile and run on various flavors of Linux and OS X. The code makes use of MPI for distributed computing and requires at least two mpi processes(1 render, 1 compute).
+TinySPH is a parallel 2D Smoothed Particle Hydrodynamics(SPH) code, designed to run in real time on the Oak Ridge Leadership Computing Facility's "Tiny Titan" Raspberry Pi cluster. This application was designed to demonstrate distributed computing concepts and while it works best in a distributed environment it is possible to run on a shared memory system such as a single multicore processor. Although the code is designed for Tiny Titan it should, perhaps with some small build tweaks, compile and run on various flavors of Linux and macOS. The code makes use of MPI for distributed computing and requires at least two MPI processes (1 render, 1 compute).
 
 If you find this code useful, find a bug, or use this code in an interesting way i'd love to hear about it, drop me a line at simpsonab@ornl.gov and let me know!
 
@@ -18,7 +18,7 @@ Several prerequisites are required before compiling the code. In a Linux environ
 
 ### Macintosh
 
-It is assumed that the XCode toolchain has been installed, this is freely available from [Apple](https://developer.apple.com/xcode/downloads/) . Once Homebrew has been installed The following commands may be run in Terminal.app to setup the prerequisties.
+It is assumed that the XCode toolchain has been installed, this is freely available from [Apple](https://developer.apple.com/xcode/downloads/). Once Homebrew has been installed, the following commands may be run in Terminal.app to setup the prerequisties.
 
     $ brew install mpich
     $ brew install glfw
@@ -27,7 +27,7 @@ It is assumed that the XCode toolchain has been installed, this is freely availa
 
 ### Raspberry Pi
 
-On the RaspberryPi the following packages must be installed, all of which are availble through apt-get. If you used the TinySetup scripts these should already be installed
+On the Raspberry Pi the following packages must be installed, all of which are availble through apt-get. If you used the TinySetup scripts these should already be installed
 
     $ sudo apt-get install mpich
     $ sudo apt-get install libglew-dev
@@ -41,12 +41,12 @@ To compile
 
     $ make -f makefile_macos
 
-To run on a 4 core single socket computer:
+To run on a 4-core single socket computer:
 
     $ mpirun -n 4 ./bin/sph.out
 
-### Raspbery Pi
-To Compile
+### Raspberry Pi
+To compile
 
     $ make
 
@@ -55,23 +55,23 @@ To run on TinyTitan
     $ make run
 
 ## Controls
-The input controls are set in `GLFW_utils.c` and `EGL_utils.c` for GLFW and Raspberry Pi platforms respectively. The Pi's controls are based upon using an XBox controller to handle input.
+The input controls are set in `GLFW_utils.c` and `EGL_utils.c` for GLFW and Raspberry Pi platforms, respectively. The Pi's controls are based upon using an XBox controller to handle input.
 
 Although subject to change generally keys should operate as follows:
 
 * The `esc` key exists the simulation under macOS. On other platform `esc` toggles the exit menu, hover the oak leaf over the `terminal` image and press `a` to exit.
 
-* Arrow keys should change the paramaters in the top left of the screen
+* Arrow keys should change the paramaters in the top left of the screen.
 
-* The mouse controlls the mover sphere
+* The mouse controls the mover sphere.
 
-* `a`,`b`,`x`,`y` are fluid parameter presets
+* `a`,`b`,`x`,`y` are fluid parameter presets.
 
-* on Mac `[` `]` controls the number of processes while on the Pi it is page up and page down.
+* On macOS `[` `]` controls the number of processes while on the Pi it is page up and page down.
 
-* `l` toggles between particle and liquid surface rendering methods
+* `l` toggles between particle and liquid surface rendering methods.
 
-If the keyboard input for the RaspberyPi doesn't work you may need to correctly set `/dev/input/event#` in `get_key_press()` in `egl_util.c` 
+If the keyboard input for the Raspberry Pi doesn't work you may need to correctly set `/dev/input/event#` in `get_key_press()` in `egl_util.c` 
 
 ## Code
 If you wish the modify the code here are a few things to keep in mind
@@ -83,7 +83,7 @@ If you wish the modify the code here are a few things to keep in mind
 * files with suffix \_gl control OpenGL rendering
 
 ## Algorithm
-The SPH algorithm is based upon the work of [Clavet et al.](http://www.ligum.umontreal.ca/Clavet-2005-PVFS/pvfs.pdf). To run in real time on the Raspberry Pi a large timestep was neccessary as communication is extremely expensive. Several modifcations have been made to make the algorithm work on the RaspberryPi.
+The SPH algorithm is based upon the work of [Clavet et al.](http://www.ligum.umontreal.ca/Clavet-2005-PVFS/pvfs.pdf). To run in real time on the Raspberry Pi a large timestep was neccessary as communication is extremely expensive. Several modifcations have been made to make the algorithm work on the Raspberry Pi.
 
 * 2D was used instead of 3D.
 * The algorithm was parallelized, the prediction-relaxation algorithm does not have a trivial parallelization scheme.
