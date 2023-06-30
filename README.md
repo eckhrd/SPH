@@ -37,9 +37,13 @@ Once the prerequisites have been installed TitanSPH can be compiled and run.
 
 ### Macintosh
 
-To compile
+To compile on Intel-based Macs:
 
     $ make -f makefile_macos
+
+To compile on Apple Silicon-based Macs (M-series chips):
+
+    $ make -f makefile_apple_silicon
 
 To run on a 4-core single socket computer:
 
